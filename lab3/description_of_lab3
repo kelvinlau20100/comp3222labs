@@ -1,0 +1,8 @@
+Latches Flip-Flops and Registers
+
+part1 - to create a gated RS latch
+part2 - to create a gated D latch
+part3 - to create a master-slave D flip-flop
+part4 - compare the behaviour of gated D latch, neg edge D flip flop and pos edge D flip flop
+part5 - store an 8 bit number in a register and and then output it on a second set of hexadecimal display while also displaying 
+        the current 8 bit input
