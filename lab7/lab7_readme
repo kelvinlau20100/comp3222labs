@@ -1,0 +1,6 @@
+this is for lab7
+
+part1 - make the described finite-state-machine based on logic expressions and nine flip flops with one hot encoding
+part2 - using vhdl statements to create the state-machine we need instead
+part3 - TBD
+part4 - create a morse-code encoder based on inputs from switches and then blinking and LED
