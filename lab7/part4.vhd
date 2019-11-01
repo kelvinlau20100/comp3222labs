@@ -3,22 +3,22 @@ USE ieee.std_logic_1164.all;
 
 ENTITY part4 IS
 	PORT(	KEY						:IN	std_logic_vector(3 DOWNTO 0);
-			SW							:IN	std_logic_vector(9 DOWNTO 0);
-			CLOCK_50					:IN	std_logic;
-			LEDR						:OUT 	std_logic_vector(9 DOWNTO 0));
+		SW						:IN	std_logic_vector(9 DOWNTO 0);
+		CLOCK_50					:IN	std_logic;
+		LEDR						:OUT 	std_logic_vector(9 DOWNTO 0));
 END part4;
 
 ARCHITECTURE mixed OF part4 IS
 	COMPONENT shiftrne IS
 		GENERIC ( N : INTEGER := 4 ) ;
 		PORT ( R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-				 L, E, w : IN STD_LOGIC ;
-				 Clock : IN STD_LOGIC ;
-	 			 Q : BUFFER STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
+		       L, E, w : IN STD_LOGIC ;
+		       Clock : IN STD_LOGIC ;
+	 	       Q : BUFFER STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
 	END COMPONENT;
 	COMPONENT half_sec_timer IS
 		PORT ( Clk, Start : IN STD_LOGIC ;
-				 TOut : OUT STD_LOGIC);
+		       TOut : OUT STD_LOGIC);
 	END COMPONENT;
 	SIGNAL Clk, nReset, w, z, shft, TStart, TOut : std_logic;
 	SIGNAL LR, CR, QL, QC : std_logic_vector(3 DOWNTO 0); -- length and code values and shift register contents
