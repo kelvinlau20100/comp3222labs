@@ -1,1 +1,6 @@
 this is lab4
+
+part1 - make an 8 bit counter using 8 T flip-flops
+part2 - making a 16 bit counter using VHDL and combinational logic rather than an actual physical circuit
+part3 - not necessary
+part4 - counter from 0 to 9 at 1 second intervals
