@@ -6,7 +6,8 @@ ENTITY part1 IS
 	PORT (DIN : IN STD_LOGIC_VECTOR(8 DOWNTO 0);
 			Resetn, Clock, Run : IN STD_LOGIC;
 			Done : BUFFER STD_LOGIC;
-			BusWires : BUFFER STD_LOGIC_VECTOR(8 DOWNTO 0));
+			BusWires : BUFFER STD_LOGIC_VECTOR(8 DOWNTO 0)
+			);
 END part1;
 
 ARCHITECTURE Behavior OF part1 IS
@@ -23,8 +24,9 @@ ARCHITECTURE Behavior OF part1 IS
 	
 	component dec3to8 is
 		PORT (W : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-			En : IN STD_LOGIC;
-			Y : OUT STD_LOGIC_VECTOR(0 TO 7));
+				En : IN STD_LOGIC;
+				Y : OUT STD_LOGIC_VECTOR(0 TO 7)
+				);
 	end component;
 	
 	signal Hi : std_logic;
@@ -72,7 +74,8 @@ BEGIN
 	statetable: PROCESS (Tstep_Q, Run, Done)
 	BEGIN
 	
-		--in all cases basically whenever run = 0 stay in the same state, otherwise check if done, if done then go to T0 otherwise go to next time step
+		--when T0 stay in T0 until run is asserted then start going else check if done then go to T0 otherwise go to next time step
+		-- we don't need to check because T2 will never assert the Done signal
 		
 		CASE Tstep_Q IS
 			WHEN T0 => -- data is loaded into IR in this time step
@@ -85,33 +88,21 @@ BEGIN
 			-- other states
 
 			when T1 =>
-				if (Run = '0') then
-					Tstep_D <= T1;
+				if (Done = '1') then
+					Tstep_D <= T0;
 				else
-					if (Done = '1') then
-						Tstep_D <= T0;
-					else
-						Tstep_D <= T2;
-					end if;
+					Tstep_D <= T2;
 				end if;
 			
 			when T2 =>
-				if (Run = '0') then
-					Tstep_D <= T2;
-				else
-						Tstep_D <= T3;
-				end if;
+					Tstep_D <= T3;
 				
 			when T3 =>
-				if (Run = '0') then
-					Tstep_D <= T3;
+				if (Done = '1') then
+					Tstep_D <= T0;
 				else
-					if (Done = '1') then
-						Tstep_D <= T0;
-					else
-						Tstep_D <= T3;
-					end if;
-				end if;						
+					Tstep_D <= T3;
+				end if;					
 		END CASE;
 	END PROCESS;
 
